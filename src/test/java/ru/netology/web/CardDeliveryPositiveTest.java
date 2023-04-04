@@ -1,10 +1,10 @@
 package ru.netology.web;
 
 import com.codeborne.selenide.Condition;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
 
@@ -17,6 +17,7 @@ public class CardDeliveryPositiveTest {
     @BeforeEach
     void setup() {
         open("http://localhost:9999/");
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterEach
@@ -25,9 +26,14 @@ public class CardDeliveryPositiveTest {
         clearBrowserLocalStorage();
     }
 
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     //Новый тест для изменения даты встречи
     @Test
-    @DisplayName("shouldSuccessfulPlanAndReplanMeeting")
+    @Description("shouldSuccessfulPlanAndReplanMeeting")
     void shouldSuccessfulPlanAndReplanMeeting() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -56,7 +62,7 @@ public class CardDeliveryPositiveTest {
     }
 
     @Test
-    @DisplayName("shouldNotSuccessfulPlanAndReplanMeetingIfCityChanged")
+    @Description("shouldNotSuccessfulPlanAndReplanMeetingIfCityChanged")
     void shouldNotSuccessfulPlanAndReplanMeetingIfCityChanged() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -85,7 +91,7 @@ public class CardDeliveryPositiveTest {
     }
 
     @Test
-    @DisplayName("shouldNotSuccessfulPlanAndReplanMeetingIfNameChanged")
+    @Description("shouldNotSuccessfulPlanAndReplanMeetingIfNameChanged")
     void shouldNotSuccessfulPlanAndReplanMeetingIfNameChanged() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -114,7 +120,7 @@ public class CardDeliveryPositiveTest {
     }
 
     @Test
-    @DisplayName("shouldNotSuccessfulPlanAndReplanMeetingIfPhoneChanged")
+    @Description("shouldNotSuccessfulPlanAndReplanMeetingIfPhoneChanged")
     void shouldNotSuccessfulPlanAndReplanMeetingIfPhoneChanged() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -145,7 +151,7 @@ public class CardDeliveryPositiveTest {
     //Изменения в старых тестах:
     //Тест появления попапа и соответствия выбранной даты
     @Test
-    @DisplayName("shouldShowSuccessfulBookingPopUpWithSelectedDate")
+    @Description("shouldShowSuccessfulBookingPopUpWithSelectedDate")
     void shouldShowSuccessfulBookingPopUpWithSelectedDate() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -165,7 +171,7 @@ public class CardDeliveryPositiveTest {
 
     //Тест валидации поля Город
     @Test
-    @DisplayName("shouldShowSuccessfulBookingPopUpIfCityNameWithDash")
+    @Description("shouldShowSuccessfulBookingPopUpIfCityNameWithDash")
     void shouldShowSuccessfulBookingPopUpIfCityNameWithDash() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -185,7 +191,7 @@ public class CardDeliveryPositiveTest {
 
     //Тесты валидации поля Фамилия и Имя
     @Test
-    @DisplayName("shouldShowSuccessfulBookingPopUpIfNameWithDash")
+    @Description("shouldShowSuccessfulBookingPopUpIfNameWithDash")
     void shouldShowSuccessfulBookingPopUpIfNameWithDash() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -204,7 +210,7 @@ public class CardDeliveryPositiveTest {
     }
 
     @Test
-    @DisplayName("shouldShowSuccessfulBookingPopUpIfNameWithLetterЁ")
+    @Description("shouldShowSuccessfulBookingPopUpIfNameWithLetterЁ")
     void shouldShowSuccessfulBookingPopUpIfNameWithLetterЁ() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -223,7 +229,7 @@ public class CardDeliveryPositiveTest {
     }
 
     @Test
-    @DisplayName("shouldShowSuccessfulBookingPopUpIfNameWithSeveralParts")
+    @Description("shouldShowSuccessfulBookingPopUpIfNameWithSeveralParts")
     void shouldShowSuccessfulBookingPopUpIfNameWithSeveralParts() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;

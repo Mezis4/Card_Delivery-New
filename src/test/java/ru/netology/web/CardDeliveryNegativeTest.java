@@ -1,9 +1,9 @@
 package ru.netology.web;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
 
@@ -14,6 +14,7 @@ public class CardDeliveryNegativeTest {
     @BeforeEach
     void setup() {
         open("http://localhost:9999/");
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
     @AfterEach
@@ -22,10 +23,15 @@ public class CardDeliveryNegativeTest {
         clearBrowserLocalStorage();
     }
 
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     //Изменения в старых тестах
     //Тесты валидации поля Город (1-е задание)
     @Test
-    @DisplayName("shouldShowErrorIfCityNotAdministrativeCenter")
+    @Description("shouldShowErrorIfCityNotAdministrativeCenter")
     void shouldShowErrorIfCityNotAdministrativeCenter() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -44,7 +50,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfCityWithLatinLetters")
+    @Description("shouldShowErrorIfCityWithLatinLetters")
     void shouldShowErrorIfCityWithLatinLetters() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -63,7 +69,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfCityWithNumbers")
+    @Description("shouldShowErrorIfCityWithNumbers")
     void shouldShowErrorIfCityWithNumbers() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -82,7 +88,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfCityWithSymbols")
+    @Description("shouldShowErrorIfCityWithSymbols")
     void shouldShowErrorIfCityWithSymbols() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -101,7 +107,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfCityFieldEmpty")
+    @Description("shouldShowErrorIfCityFieldEmpty")
     void shouldShowErrorIfCityFieldEmpty() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -120,7 +126,7 @@ public class CardDeliveryNegativeTest {
 
     //Тесты валидации поля Дата
     @Test
-    @DisplayName("shouldShowErrorIfMeetingDayAfterTomorrow")
+    @Description("shouldShowErrorIfMeetingDayAfterTomorrow")
     void shouldShowErrorIfMeetingDayAfterTomorrow() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 1;
@@ -139,7 +145,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfMeetingDateToday")
+    @Description("shouldShowErrorIfMeetingDateToday")
     void shouldShowErrorIfMeetingDateToday() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 0;
@@ -158,7 +164,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfMeetingDateYesterday")
+    @Description("shouldShowErrorIfMeetingDateYesterday")
     void shouldShowErrorIfMeetingDateYesterday() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = -1;
@@ -177,7 +183,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfDateEmpty")
+    @Description("shouldShowErrorIfDateEmpty")
     void shouldShowErrorIfDateEmpty() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         $x("//span[@data-test-id='city']//child::input").setValue(validUser.getCity());
@@ -194,7 +200,7 @@ public class CardDeliveryNegativeTest {
 
     //Тесты на валидацию поле Фамилия и Имя
     @Test
-    @DisplayName("shouldShowErrorIfNameWithLatinLetters")
+    @Description("shouldShowErrorIfNameWithLatinLetters")
     void shouldShowErrorIfNameWithLatinLetters() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -213,7 +219,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfWithNumber")
+    @Description("shouldShowErrorIfWithNumber")
     void shouldShowErrorIfWithNumber() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -232,7 +238,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfNameWithSymbols")
+    @Description("shouldShowErrorIfNameWithSymbols")
     void shouldShowErrorIfNameWithSymbols() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -251,7 +257,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfNameEmpty")
+    @Description("shouldShowErrorIfNameEmpty")
     void shouldShowErrorIfNameEmpty() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -270,7 +276,7 @@ public class CardDeliveryNegativeTest {
 
     //Тест для поля Номер телефона
     @Test
-    @DisplayName("shouldShowErrorIfPhoneEmpty")
+    @Description("shouldShowErrorIfPhoneEmpty")
     void shouldShowErrorIfPhoneEmpty() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -288,7 +294,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfPhone10Numbers")
+    @Description("shouldShowErrorIfPhone10Numbers")
     void shouldShowErrorIfPhone10Numbers() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
@@ -308,7 +314,7 @@ public class CardDeliveryNegativeTest {
     }
 
     @Test
-    @DisplayName("shouldShowErrorIfCheckboxEmpty")
+    @Description("shouldShowErrorIfCheckboxEmpty")
     void shouldShowErrorIfCheckboxEmpty() {
         var validUser = DataGenerator.Registration.generateUser("ru");
         var daysToAddForFirstMeeting = 4;
